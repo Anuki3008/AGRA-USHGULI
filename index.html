@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="აგრა უშგული — სვანური გემოები, ქართული ღვინო და შეხვედრის ადგილი უშგულის გულში. მენიუ ქართულად და ინგლისურად.">
   <title>აგრა უშგული • Agra Ushguli</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./menu.js" defer></script>
 </head>
 
 <body>
@@ -125,26 +127,39 @@
         </a>
       </div>
 
-      <figure>
-        <a
-          id="menu-preview-link"
-          href="./menu-ka.jpeg"
-          target="_blank"
-          rel="noopener"
-        >
-          <img
-            id="menu-image"
-            src="./menu-ka.jpeg"
-            alt="აგრას მენიუ ქართულად"
-            loading="lazy"
-          >
-        </a>
+      <div
+        id="tabs"
+        role="tablist"
+        aria-label="მენიუს კატეგორიები"
+      ></div>
 
-        <figcaption
-          data-ka="გასადიდებლად დააჭირეთ მენიუს."
-          data-en="Click the menu to view it full size."
-        >გასადიდებლად დააჭირეთ მენიუს.</figcaption>
-      </figure>
+      <div class="menu-head">
+        <h3>
+          <span id="category"></span>
+          <sup id="count"></sup>
+        </h3>
+
+        <input
+          type="search"
+          id="search"
+          aria-label="მენიუში ძიება"
+          placeholder="მოძებნეთ კატეგორიაში"
+        >
+      </div>
+
+      <div
+        id="items"
+        role="tabpanel"
+        aria-live="polite"
+        tabindex="0"
+      ></div>
+
+      <noscript>
+        <p>
+          მენიუს სანახავად გახსენით ქვემოთ მოცემული ბმულები.
+          / Open a menu below.
+        </p>
+      </noscript>
 
       <div class="original-menu-links">
         <a
@@ -242,96 +257,5 @@
 
     <a id="back-to-top" href="#home" aria-label="ზემოთ დაბრუნება">↑</a>
   </footer>
-
-  <script>
-    (() => {
-      const languageButton = document.getElementById("language");
-      const menuImage = document.getElementById("menu-image");
-      const menuPreviewLink = document.getElementById("menu-preview-link");
-      const originalMenuLink = document.getElementById("original");
-      const backToTop = document.getElementById("back-to-top");
-      const description = document.querySelector('meta[name="description"]');
-
-      const menus = {
-        ka: {
-          src: "./menu-ka.jpeg",
-          alt: "აგრას მენიუ ქართულად"
-        },
-        en: {
-          src: "./menu-en.jpeg",
-          alt: "Agra menu in English"
-        }
-      };
-
-      const descriptions = {
-        ka: "აგრა უშგული — სვანური გემოები, ქართული ღვინო და შეხვედრის ადგილი უშგულის გულში. მენიუ ქართულად და ინგლისურად.",
-        en: "Agra Ushguli — Svan flavours, Georgian wine and a gathering place in the heart of Ushguli. Menu in Georgian and English."
-      };
-
-      let currentLanguage = "ka";
-
-      function setLanguage(language) {
-        currentLanguage = language === "en" ? "en" : "ka";
-        document.documentElement.lang = currentLanguage;
-
-        document.querySelectorAll("[data-ka][data-en]").forEach((element) => {
-          element.textContent = element.getAttribute(
-            "data-" + currentLanguage
-          );
-        });
-
-        document.querySelectorAll("[data-alt-ka][data-alt-en]").forEach((image) => {
-          image.alt = image.getAttribute("data-alt-" + currentLanguage);
-        });
-
-        const menu = menus[currentLanguage];
-
-        menuImage.src = menu.src;
-        menuImage.alt = menu.alt;
-        menuPreviewLink.href = menu.src;
-        originalMenuLink.href = menu.src;
-
-        const isGeorgian = currentLanguage === "ka";
-
-        languageButton.textContent = isGeorgian ? "ENG" : "ქარ";
-        languageButton.lang = isGeorgian ? "en" : "ka";
-        languageButton.setAttribute(
-          "aria-label",
-          isGeorgian ? "Switch to English" : "ქართულზე გადართვა"
-        );
-
-        backToTop.setAttribute(
-          "aria-label",
-          isGeorgian ? "ზემოთ დაბრუნება" : "Back to top"
-        );
-
-        document.title = isGeorgian
-          ? "აგრა უშგული • Agra Ushguli"
-          : "Agra Ushguli • აგრა უშგული";
-
-        description.content = descriptions[currentLanguage];
-      }
-
-      languageButton.addEventListener("click", () => {
-        setLanguage(currentLanguage === "ka" ? "en" : "ka");
-
-        try {
-          localStorage.setItem("agra-language", currentLanguage);
-        } catch {
-          // Language switching also works when storage is unavailable.
-        }
-      });
-
-      let savedLanguage = "ka";
-
-      try {
-        savedLanguage = localStorage.getItem("agra-language") || "ka";
-      } catch {
-        // Use Georgian when storage is unavailable.
-      }
-
-      setLanguage(savedLanguage);
-    })();
-  </script>
 </body>
 </html>
