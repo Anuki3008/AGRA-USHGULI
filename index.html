@@ -1,27 +1,171 @@
-<section class="wine" id="wine">
-  <div class="wine-mark">
-    <img
-      src="./agra-breakfast.jpg"
-      alt="საუზმე აგრაში — Breakfast at Agra"
-      loading="lazy"
-    >
-  </div>
+<!doctype html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="აგრა უშგული — სვანური გემოები, ქართული ღვინო და შეხვედრის ადგილი უშგულის გულში. მენიუ ქართულად და ინგლისურად.">
+  <title>აგრა უშგული • Agra Ushguli</title>
+</head>
 
-  <div>
-    <p
-      class="eyebrow"
-      data-ka="ღვინო და ისტორიები"
-      data-en="Wine &amp; stories"
-    >ღვინო და ისტორიები</p>
+<body>
+  <header>
+    <a class="brand" href="#home" aria-label="აგრა — Agra Ushguli">
+      <img
+        src="./agra-logo.jpg"
+        alt="აგრა — კაფე და საოჯახო სასტუმრო"
+        width="120"
+        height="120"
+      >
+    </a>
 
-    <h2
-      data-ka="საქართველოს გემო, თითოეულ ჭიქაში."
-      data-en="A taste of Georgia in every glass."
-    >საქართველოს გემო, თითოეულ ჭიქაში.</h2>
+    <nav>
+      <a href="#story">ჩვენ შესახებ</a>
+      <a href="#menu">მენიუ</a>
+      <a href="#wine">ღვინო და ისტორიები</a>
+      <a href="#visit">გვესტუმრეთ</a>
+    </nav>
+  </header>
 
-    <p
-      data-ka="ბუნებრივი ღვინოები მცირე საოჯახო მარნებიდან — სამეგრელოს მწვანე ბორცვებიდან კახეთის მზიან ვენახებამდე. სიამოვნებით დაგეხმარებით თქვენი კერძის შესაფერისი ღვინის შერჩევაში."
-      data-en="Natural wines from small family wineries, from the green hills of Samegrelo to the sunny vineyards of Kakheti. Let us help you find the perfect companion to your dish."
-    >ბუნებრივი ღვინოები მცირე საოჯახო მარნებიდან — სამეგრელოს მწვანე ბორცვებიდან კახეთის მზიან ვენახებამდე. სიამოვნებით დაგეხმარებით თქვენი კერძის შესაფერისი ღვინის შერჩევაში.</p>
-  </div>
-</section>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">სვანეთი · საქართველო · 2019 წლიდან</p>
+
+        <h1>შეხვედრის ადგილი უშგულის გულში.</h1>
+
+        <p class="intro">
+          სვანური გემოები, ადგილობრივი პროდუქტები და ისტორიები,
+          რომლებიც სუფრასთან გვაერთიანებს.
+        </p>
+
+        <a class="cta" href="#menu">აღმოაჩინეთ მენიუ ↗</a>
+
+        <div class="hero-note">
+          <span>43° N / 43° E</span>
+          <span>AGRA · USHGULI</span>
+        </div>
+      </div>
+
+      <div class="art logo-art">
+        <img
+          src="./agra-logo.jpg"
+          alt="აგრა — კაფე და საოჯახო სასტუმრო / AGRA Cafe &amp; Guest House"
+          width="400"
+          height="400"
+          fetchpriority="high"
+        >
+      </div>
+    </section>
+
+    <section id="story" class="story">
+      <p class="eyebrow">ჩვენი ამბავი</p>
+
+      <h2>„აგრა“ სვანურად ადამიანების შეკრების ადგილს ნიშნავს.</h2>
+
+      <p>
+        2019 წლიდან უშგულის გულში მოგზაურებს სვანური ტრადიციებითა
+        და ავთენტური კერძებით ვმასპინძლობთ. ჩვენი კერძების უმეტესობა
+        ადგილობრივი პროდუქტებითა და ტრადიციული სვანური რეცეპტებით მზადდება.
+      </p>
+    </section>
+
+    <div class="welcome-banner">
+      <img
+        src="./agra-welcome.png"
+        alt="აქ სადაც სტუმარი ყოველთვის შინაურია — აგრა, უშგული"
+        loading="lazy"
+      >
+    </div>
+
+    <section id="menu" class="menu">
+      <div class="section-head">
+        <p class="eyebrow">ადგილობრივი გემოები</p>
+        <h2>ჩვენი მენიუ</h2>
+      </div>
+
+      <figure>
+        <a href="./menu-ka.jpeg" target="_blank" rel="noopener">
+          <img
+            src="./menu-ka.jpeg"
+            alt="აგრას მენიუ ქართულად"
+            loading="lazy"
+          >
+        </a>
+        <figcaption>
+          <a href="./menu-ka.jpeg" target="_blank" rel="noopener">
+            მენიუ ქართულად ↗
+          </a>
+        </figcaption>
+      </figure>
+
+      <figure>
+        <a href="./menu-en.jpeg" target="_blank" rel="noopener">
+          <img
+            src="./menu-en.jpeg"
+            alt="Agra menu in English"
+            lang="en"
+            loading="lazy"
+          >
+        </a>
+        <figcaption>
+          <a href="./menu-en.jpeg" target="_blank" rel="noopener" lang="en">
+            Menu in English ↗
+          </a>
+        </figcaption>
+      </figure>
+
+      <p class="price-note">ფასები მოცემულია ლარში (₾).</p>
+    </section>
+
+    <section class="wine" id="wine">
+      <div class="wine-mark">
+        <img
+          src="./agra-breakfast.jpg"
+          alt="საუზმე აგრაში — Breakfast at Agra"
+          loading="lazy"
+        >
+      </div>
+
+      <div>
+        <p class="eyebrow">ღვინო და ისტორიები</p>
+
+        <h2>საქართველოს გემო, თითოეულ ჭიქაში.</h2>
+
+        <p>
+          ბუნებრივი ღვინოები მცირე საოჯახო მარნებიდან —
+          სამეგრელოს მწვანე ბორცვებიდან კახეთის მზიან ვენახებამდე.
+          სიამოვნებით დაგეხმარებით თქვენი კერძის შესაფერისი ღვინის შერჩევაში.
+        </p>
+      </div>
+    </section>
+
+    <section id="visit" class="visit">
+      <p class="eyebrow">გელოდებით უშგულში</p>
+
+      <h2>შევხვდეთ აგრაში.</h2>
+
+      <p>უშგული, სვანეთი, საქართველო</p>
+
+      <div class="social">
+        <a
+          href="https://www.facebook.com/agraushguli/"
+          target="_blank"
+          rel="noopener"
+        >Facebook ↗</a>
+
+        <a
+          href="https://www.instagram.com/agraushguli/"
+          target="_blank"
+          rel="noopener"
+        >Instagram ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>AGRA USHGULI</p>
+    <p>ადამიანები. ისტორიები. სვანური გემოები.</p>
+    <a href="#home" aria-label="ზემოთ დაბრუნება">↑</a>
+  </footer>
+</body>
+</html>
