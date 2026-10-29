@@ -19,26 +19,43 @@
     </a>
 
     <nav>
-      <a href="#story">ჩვენ შესახებ</a>
-      <a href="#menu">მენიუ</a>
-      <a href="#wine">ღვინო და ისტორიები</a>
-      <a href="#visit">გვესტუმრეთ</a>
+      <a href="#story" data-ka="ჩვენ შესახებ" data-en="Our story">ჩვენ შესახებ</a>
+      <a href="#menu" data-ka="მენიუ" data-en="Menu">მენიუ</a>
+      <a href="#wine" data-ka="ღვინო და ისტორიები" data-en="Wine &amp; stories">ღვინო და ისტორიები</a>
+      <a href="#visit" data-ka="გვესტუმრეთ" data-en="Visit us">გვესტუმრეთ</a>
     </nav>
+
+    <button
+      id="language"
+      type="button"
+      aria-label="Switch to English"
+    >ENG</button>
   </header>
 
   <main>
     <section class="hero" id="home">
       <div class="hero-copy">
-        <p class="eyebrow">სვანეთი · საქართველო · 2019 წლიდან</p>
+        <p
+          class="eyebrow"
+          data-ka="სვანეთი · საქართველო · 2019 წლიდან"
+          data-en="Svaneti · Georgia · Since 2019"
+        >სვანეთი · საქართველო · 2019 წლიდან</p>
 
-        <h1>შეხვედრის ადგილი უშგულის გულში.</h1>
+        <h1
+          data-ka="შეხვედრის ადგილი უშგულის გულში."
+          data-en="A gathering place in the heart of Ushguli."
+        >შეხვედრის ადგილი უშგულის გულში.</h1>
 
-        <p class="intro">
-          სვანური გემოები, ადგილობრივი პროდუქტები და ისტორიები,
-          რომლებიც სუფრასთან გვაერთიანებს.
-        </p>
+        <p
+          class="intro"
+          data-ka="სვანური გემოები, ადგილობრივი პროდუქტები და ისტორიები, რომლებიც სუფრასთან გვაერთიანებს."
+          data-en="Svan flavours, local ingredients and stories that bring us together around the table."
+        >სვანური გემოები, ადგილობრივი პროდუქტები და ისტორიები, რომლებიც სუფრასთან გვაერთიანებს.</p>
 
-        <a class="cta" href="#menu">აღმოაჩინეთ მენიუ ↗</a>
+        <a class="cta" href="#menu">
+          <span data-ka="აღმოაჩინეთ მენიუ" data-en="Explore the menu">აღმოაჩინეთ მენიუ</span>
+          ↗
+        </a>
 
         <div class="hero-note">
           <span>43° N / 43° E</span>
@@ -58,93 +75,146 @@
     </section>
 
     <section id="story" class="story">
-      <p class="eyebrow">ჩვენი ამბავი</p>
+      <p
+        class="eyebrow"
+        data-ka="ჩვენი ამბავი"
+        data-en="Our story"
+      >ჩვენი ამბავი</p>
 
-      <h2>„აგრა“ სვანურად ადამიანების შეკრების ადგილს ნიშნავს.</h2>
+      <h2
+        data-ka="„აგრა“ სვანურად ადამიანების შეკრების ადგილს ნიშნავს."
+        data-en="“Agra” means a gathering place in Svan."
+      >„აგრა“ სვანურად ადამიანების შეკრების ადგილს ნიშნავს.</h2>
 
-      <p>
-        2019 წლიდან უშგულის გულში მოგზაურებს სვანური ტრადიციებითა
-        და ავთენტური კერძებით ვმასპინძლობთ. ჩვენი კერძების უმეტესობა
-        ადგილობრივი პროდუქტებითა და ტრადიციული სვანური რეცეპტებით მზადდება.
-      </p>
+      <p
+        data-ka="2019 წლიდან უშგულის გულში მოგზაურებს სვანური ტრადიციებითა და ავთენტური კერძებით ვმასპინძლობთ. ჩვენი კერძების უმეტესობა ადგილობრივი პროდუქტებითა და ტრადიციული სვანური რეცეპტებით მზადდება."
+        data-en="Since 2019, we have welcomed travellers to the heart of Ushguli through Svan traditions and authentic local cuisine. Most of our dishes are prepared with locally sourced ingredients and traditional Svan recipes."
+      >2019 წლიდან უშგულის გულში მოგზაურებს სვანური ტრადიციებითა და ავთენტური კერძებით ვმასპინძლობთ. ჩვენი კერძების უმეტესობა ადგილობრივი პროდუქტებითა და ტრადიციული სვანური რეცეპტებით მზადდება.</p>
     </section>
 
     <div class="welcome-banner">
       <img
         src="./agra-welcome.png"
         alt="აქ სადაც სტუმარი ყოველთვის შინაურია — აგრა, უშგული"
+        data-alt-ka="აქ სადაც სტუმარი ყოველთვის შინაურია — აგრა, უშგული"
+        data-alt-en="Where guests always feel at home — Agra, Ushguli"
         loading="lazy"
       >
     </div>
 
     <section id="menu" class="menu">
       <div class="section-head">
-        <p class="eyebrow">ადგილობრივი გემოები</p>
-        <h2>ჩვენი მენიუ</h2>
+        <div>
+          <p
+            class="eyebrow"
+            data-ka="ადგილობრივი გემოები"
+            data-en="A taste of Svaneti"
+          >ადგილობრივი გემოები</p>
+
+          <h2 data-ka="ჩვენი მენიუ" data-en="Our menu">ჩვენი მენიუ</h2>
+        </div>
+
+        <a
+          id="original"
+          href="./menu-ka.jpeg"
+          target="_blank"
+          rel="noopener"
+        >
+          <span data-ka="ორიგინალი მენიუ" data-en="Original menu">ორიგინალი მენიუ</span>
+          ↗
+        </a>
       </div>
 
       <figure>
-        <a href="./menu-ka.jpeg" target="_blank" rel="noopener">
+        <a
+          id="menu-preview-link"
+          href="./menu-ka.jpeg"
+          target="_blank"
+          rel="noopener"
+        >
           <img
+            id="menu-image"
             src="./menu-ka.jpeg"
             alt="აგრას მენიუ ქართულად"
             loading="lazy"
           >
         </a>
-        <figcaption>
-          <a href="./menu-ka.jpeg" target="_blank" rel="noopener">
-            მენიუ ქართულად ↗
-          </a>
-        </figcaption>
+
+        <figcaption
+          data-ka="გასადიდებლად დააჭირეთ მენიუს."
+          data-en="Click the menu to view it full size."
+        >გასადიდებლად დააჭირეთ მენიუს.</figcaption>
       </figure>
 
-      <figure>
-        <a href="./menu-en.jpeg" target="_blank" rel="noopener">
-          <img
-            src="./menu-en.jpeg"
-            alt="Agra menu in English"
-            lang="en"
-            loading="lazy"
-          >
-        </a>
-        <figcaption>
-          <a href="./menu-en.jpeg" target="_blank" rel="noopener" lang="en">
-            Menu in English ↗
-          </a>
-        </figcaption>
-      </figure>
+      <div class="original-menu-links">
+        <a
+          href="./menu-ka.jpeg"
+          target="_blank"
+          rel="noopener"
+          lang="ka"
+        >მენიუ ქართულად ↗</a>
 
-      <p class="price-note">ფასები მოცემულია ლარში (₾).</p>
+        <a
+          href="./menu-en.jpeg"
+          target="_blank"
+          rel="noopener"
+          lang="en"
+        >Menu in English ↗</a>
+      </div>
+
+      <p
+        class="price-note"
+        data-ka="ფასები მოცემულია ლარში (₾)."
+        data-en="All prices are in Georgian lari (₾)."
+      >ფასები მოცემულია ლარში (₾).</p>
     </section>
 
     <section class="wine" id="wine">
       <div class="wine-mark">
         <img
           src="./agra-breakfast.jpg"
-          alt="საუზმე აგრაში — Breakfast at Agra"
+          alt="საუზმე აგრაში"
+          data-alt-ka="საუზმე აგრაში"
+          data-alt-en="Breakfast at Agra"
           loading="lazy"
         >
       </div>
 
       <div>
-        <p class="eyebrow">ღვინო და ისტორიები</p>
+        <p
+          class="eyebrow"
+          data-ka="ღვინო და ისტორიები"
+          data-en="Wine &amp; stories"
+        >ღვინო და ისტორიები</p>
 
-        <h2>საქართველოს გემო, თითოეულ ჭიქაში.</h2>
+        <h2
+          data-ka="საქართველოს გემო, თითოეულ ჭიქაში."
+          data-en="A taste of Georgia in every glass."
+        >საქართველოს გემო, თითოეულ ჭიქაში.</h2>
 
-        <p>
-          ბუნებრივი ღვინოები მცირე საოჯახო მარნებიდან —
-          სამეგრელოს მწვანე ბორცვებიდან კახეთის მზიან ვენახებამდე.
-          სიამოვნებით დაგეხმარებით თქვენი კერძის შესაფერისი ღვინის შერჩევაში.
-        </p>
+        <p
+          data-ka="ბუნებრივი ღვინოები მცირე საოჯახო მარნებიდან — სამეგრელოს მწვანე ბორცვებიდან კახეთის მზიან ვენახებამდე. სიამოვნებით დაგეხმარებით თქვენი კერძის შესაფერისი ღვინის შერჩევაში."
+          data-en="Natural wines from small family wineries, from the green hills of Samegrelo to the sunny vineyards of Kakheti. Let us help you find the perfect companion to your dish."
+        >ბუნებრივი ღვინოები მცირე საოჯახო მარნებიდან — სამეგრელოს მწვანე ბორცვებიდან კახეთის მზიან ვენახებამდე. სიამოვნებით დაგეხმარებით თქვენი კერძის შესაფერისი ღვინის შერჩევაში.</p>
       </div>
     </section>
 
     <section id="visit" class="visit">
-      <p class="eyebrow">გელოდებით უშგულში</p>
+      <p
+        class="eyebrow"
+        data-ka="გელოდებით უშგულში"
+        data-en="Find us in Ushguli"
+      >გელოდებით უშგულში</p>
 
-      <h2>შევხვდეთ აგრაში.</h2>
+      <h2
+        data-ka="შევხვდეთ აგრაში."
+        data-en="Let’s meet at Agra."
+      >შევხვდეთ აგრაში.</h2>
 
-      <p>უშგული, სვანეთი, საქართველო</p>
+      <p
+        data-ka="უშგული, სვანეთი, საქართველო"
+        data-en="Ushguli, Svaneti, Georgia"
+      >უშგული, სვანეთი, საქართველო</p>
 
       <div class="social">
         <a
@@ -164,8 +234,104 @@
 
   <footer>
     <p>AGRA USHGULI</p>
-    <p>ადამიანები. ისტორიები. სვანური გემოები.</p>
-    <a href="#home" aria-label="ზემოთ დაბრუნება">↑</a>
+
+    <p
+      data-ka="ადამიანები. ისტორიები. სვანური გემოები."
+      data-en="People. Stories. Svan flavours."
+    >ადამიანები. ისტორიები. სვანური გემოები.</p>
+
+    <a id="back-to-top" href="#home" aria-label="ზემოთ დაბრუნება">↑</a>
   </footer>
+
+  <script>
+    (() => {
+      const languageButton = document.getElementById("language");
+      const menuImage = document.getElementById("menu-image");
+      const menuPreviewLink = document.getElementById("menu-preview-link");
+      const originalMenuLink = document.getElementById("original");
+      const backToTop = document.getElementById("back-to-top");
+      const description = document.querySelector('meta[name="description"]');
+
+      const menus = {
+        ka: {
+          src: "./menu-ka.jpeg",
+          alt: "აგრას მენიუ ქართულად"
+        },
+        en: {
+          src: "./menu-en.jpeg",
+          alt: "Agra menu in English"
+        }
+      };
+
+      const descriptions = {
+        ka: "აგრა უშგული — სვანური გემოები, ქართული ღვინო და შეხვედრის ადგილი უშგულის გულში. მენიუ ქართულად და ინგლისურად.",
+        en: "Agra Ushguli — Svan flavours, Georgian wine and a gathering place in the heart of Ushguli. Menu in Georgian and English."
+      };
+
+      let currentLanguage = "ka";
+
+      function setLanguage(language) {
+        currentLanguage = language === "en" ? "en" : "ka";
+        document.documentElement.lang = currentLanguage;
+
+        document.querySelectorAll("[data-ka][data-en]").forEach((element) => {
+          element.textContent = element.getAttribute(
+            "data-" + currentLanguage
+          );
+        });
+
+        document.querySelectorAll("[data-alt-ka][data-alt-en]").forEach((image) => {
+          image.alt = image.getAttribute("data-alt-" + currentLanguage);
+        });
+
+        const menu = menus[currentLanguage];
+
+        menuImage.src = menu.src;
+        menuImage.alt = menu.alt;
+        menuPreviewLink.href = menu.src;
+        originalMenuLink.href = menu.src;
+
+        const isGeorgian = currentLanguage === "ka";
+
+        languageButton.textContent = isGeorgian ? "ENG" : "ქარ";
+        languageButton.lang = isGeorgian ? "en" : "ka";
+        languageButton.setAttribute(
+          "aria-label",
+          isGeorgian ? "Switch to English" : "ქართულზე გადართვა"
+        );
+
+        backToTop.setAttribute(
+          "aria-label",
+          isGeorgian ? "ზემოთ დაბრუნება" : "Back to top"
+        );
+
+        document.title = isGeorgian
+          ? "აგრა უშგული • Agra Ushguli"
+          : "Agra Ushguli • აგრა უშგული";
+
+        description.content = descriptions[currentLanguage];
+      }
+
+      languageButton.addEventListener("click", () => {
+        setLanguage(currentLanguage === "ka" ? "en" : "ka");
+
+        try {
+          localStorage.setItem("agra-language", currentLanguage);
+        } catch {
+          // Language switching also works when storage is unavailable.
+        }
+      });
+
+      let savedLanguage = "ka";
+
+      try {
+        savedLanguage = localStorage.getItem("agra-language") || "ka";
+      } catch {
+        // Use Georgian when storage is unavailable.
+      }
+
+      setLanguage(savedLanguage);
+    })();
+  </script>
 </body>
 </html>
