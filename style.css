@@ -21,7 +21,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Noto Sans Georgian', Arial, sans-serif;
+  font-family: "Noto Sans Georgian", Arial, sans-serif;
 }
 
 a {
@@ -58,6 +58,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
   border-bottom: 1px solid var(--line);
   background: var(--paper);
   position: sticky;
@@ -86,6 +87,7 @@ nav {
 }
 
 header button {
+  flex-shrink: 0;
   border: 1px solid var(--line);
   background: none;
   color: var(--ink);
@@ -96,14 +98,10 @@ header button {
 
 .hero {
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   min-height: 650px;
   padding: 55px 6% 64px;
   gap: 6%;
-}
-
-.hero > * {
-  min-width: 0;
 }
 
 .hero-copy {
@@ -146,6 +144,7 @@ h2 {
   color: var(--paper);
   padding: 18px 25px;
   display: inline-flex;
+  align-items: center;
   gap: 35px;
   margin-top: 25px;
   font-size: 13px;
@@ -259,6 +258,9 @@ h2 {
 }
 
 #tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   flex-shrink: 0;
   border: 0;
   border-bottom: 3px solid transparent;
@@ -313,17 +315,27 @@ input {
   padding: 24px 0;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 18px;
 }
 
-.dish > div {
+.dish-copy {
+  flex: 1;
   min-width: 0;
 }
 
 .dish h3 {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
   font-size: 16px;
   font-weight: 500;
   margin: 0 0 9px;
+  line-height: 1.6;
+}
+
+.dish h3 .menu-icon {
+  margin-top: 3px;
 }
 
 .dish p {
@@ -339,11 +351,55 @@ input {
   white-space: nowrap;
   font-size: 17px;
   font-weight: 500;
+  line-height: 1.6;
 }
 
 .dish small {
   font-size: 12px;
   color: #6c795f;
+}
+
+.menu-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: currentColor;
+  vertical-align: -4px;
+}
+
+.vegetarian-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  padding: 5px 10px;
+  border: 1px solid #acbea0;
+  border-radius: 20px;
+  background: #edf3e6;
+  color: #365132;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.vegetarian-badge .menu-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.dish-photo-link {
+  display: block;
+  max-width: 320px;
+  margin-top: 14px;
+}
+
+.dish-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .original-menu-links {
@@ -371,27 +427,18 @@ input {
   color: var(--paper);
 }
 
-.wine-mark {
-  display: block;
-  min-width: 0;
-}
-
-.wine-mark img {
+.wine-photo img {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 6px;
 }
 
-.wine > div:last-child {
-  min-width: 0;
-}
-
 .wine h2 {
   font-size: 32px;
 }
 
-.wine p:last-child {
+.wine-copy > p:last-child {
   font-size: 14px;
   line-height: 2;
   color: #d3d9ca;
@@ -449,6 +496,7 @@ footer a {
 @media (max-width: 760px) {
   header {
     height: 78px;
+    gap: 12px;
   }
 
   .brand img {
@@ -467,7 +515,7 @@ footer a {
   }
 
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding-top: 28px;
     gap: 35px;
   }
@@ -547,7 +595,15 @@ footer a {
     grid-template-columns: minmax(0, 1fr);
   }
 
+  .dish {
+    gap: 12px;
+  }
+
   .dish h3 {
+    font-size: 15px;
+  }
+
+  .dish strong {
     font-size: 15px;
   }
 
