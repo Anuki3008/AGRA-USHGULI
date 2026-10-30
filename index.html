@@ -6,6 +6,7 @@
   <meta name="description" content="აგრა უშგული — სვანური გემოები, ქართული ღვინო და შეხვედრის ადგილი უშგულის გულში. მენიუ ქართულად და ინგლისურად.">
   <title>აგრა უშგული • Agra Ushguli</title>
   <link rel="stylesheet" href="./style.css">
+  <script src="./data.js" defer></script>
   <script src="./menu.js" defer></script>
 </head>
 
@@ -27,9 +28,11 @@
       <a href="#visit" data-ka="გვესტუმრეთ" data-en="Visit us">გვესტუმრეთ</a>
     </nav>
 
-    <button id="language" type="button" aria-label="Switch to English">
-      ENG
-    </button>
+    <button
+      id="language"
+      type="button"
+      aria-label="Switch to English"
+    >ENG</button>
   </header>
 
   <main>
@@ -53,10 +56,8 @@
         >სვანური გემოები, ადგილობრივი პროდუქტები და ისტორიები, რომლებიც სუფრასთან გვაერთიანებს.</p>
 
         <a class="cta" href="#menu">
-          <span data-ka="აღმოაჩინეთ მენიუ" data-en="Explore the menu">
-            აღმოაჩინეთ მენიუ
-          </span>
-          <span aria-hidden="true">↗</span>
+          <span data-ka="აღმოაჩინეთ მენიუ" data-en="Explore the menu">აღმოაჩინეთ მენიუ</span>
+          ↗
         </a>
 
         <div class="hero-note">
@@ -65,7 +66,7 @@
         </div>
       </div>
 
-      <div class="logo-art">
+      <div class="art logo-art">
         <img
           src="./agra-logo.jpg"
           alt="აგრა — კაფე და საოჯახო სასტუმრო / AGRA Cafe &amp; Guest House"
@@ -77,9 +78,11 @@
     </section>
 
     <section id="story" class="story">
-      <p class="eyebrow" data-ka="ჩვენი ამბავი" data-en="Our story">
-        ჩვენი ამბავი
-      </p>
+      <p
+        class="eyebrow"
+        data-ka="ჩვენი ამბავი"
+        data-en="Our story"
+      >ჩვენი ამბავი</p>
 
       <h2
         data-ka="„აგრა“ სვანურად ადამიანების შეკრების ადგილს ნიშნავს."
@@ -111,57 +114,42 @@
             data-en="A taste of Svaneti"
           >ადგილობრივი გემოები</p>
 
-          <h2 data-ka="ჩვენი მენიუ" data-en="Our menu">
-            ჩვენი მენიუ
-          </h2>
+          <h2 data-ka="ჩვენი მენიუ" data-en="Our menu">ჩვენი მენიუ</h2>
         </div>
 
-        <a id="original" href="./menu-ka.jpeg" target="_blank" rel="noopener">
-          <span data-ka="ორიგინალი მენიუ" data-en="Original menu">
-            ორიგინალი მენიუ
-          </span>
+        <a
+          id="original"
+          href="./menu-ka.jpeg"
+          target="_blank"
+          rel="noopener"
+        >
+          <span data-ka="ორიგინალი მენიუ" data-en="Original menu">ორიგინალი მენიუ</span>
           ↗
         </a>
       </div>
 
       <div id="tabs" role="tablist" aria-label="მენიუს კატეგორიები"></div>
-
       <div class="menu-head">
-        <h3>
-          <span id="category"></span>
-          <sup id="count"></sup>
-        </h3>
-
-        <input
-          type="search"
-          id="search"
-          aria-label="მოძებნეთ კატეგორიაში"
-          placeholder="მოძებნეთ კატეგორიაში"
-        >
+        <h3><span id="category"></span> <sup id="count"></sup></h3>
+        <input type="search" id="search" aria-label="მენიუში ძიება" placeholder="მოძებნეთ კატეგორიაში">
       </div>
-
-      <div
-        id="items"
-        role="tabpanel"
-        aria-live="polite"
-        tabindex="0"
-      ></div>
-
-      <noscript>
-        <p>
-          მენიუს სანახავად გახსენით ქვემოთ მოცემული ბმულები.
-          / Open a menu below.
-        </p>
-      </noscript>
+      <div id="items" role="tabpanel" aria-live="polite" tabindex="0"></div>
+      <noscript><p>მენიუს სანახავად გახსენით ქვემოთ მოცემული ბმულები. / Open a menu below.</p></noscript>
 
       <div class="original-menu-links">
-        <a href="./menu-ka.jpeg" target="_blank" rel="noopener" lang="ka">
-          მენიუ ქართულად ↗
-        </a>
+        <a
+          href="./menu-ka.jpeg"
+          target="_blank"
+          rel="noopener"
+          lang="ka"
+        >მენიუ ქართულად ↗</a>
 
-        <a href="./menu-en.jpeg" target="_blank" rel="noopener" lang="en">
-          Menu in English ↗
-        </a>
+        <a
+          href="./menu-en.jpeg"
+          target="_blank"
+          rel="noopener"
+          lang="en"
+        >Menu in English ↗</a>
       </div>
 
       <p
@@ -172,7 +160,7 @@
     </section>
 
     <section class="wine" id="wine">
-      <div class="wine-photo">
+      <div class="wine-mark">
         <img
           src="./agra-breakfast.jpg"
           alt="საუზმე აგრაში"
@@ -182,7 +170,7 @@
         >
       </div>
 
-      <div class="wine-copy">
+      <div>
         <p
           class="eyebrow"
           data-ka="ღვინო და ისტორიები"
@@ -208,9 +196,10 @@
         data-en="Find us in Ushguli"
       >გელოდებით უშგულში</p>
 
-      <h2 data-ka="შევხვდეთ აგრაში." data-en="Let’s meet at Agra.">
-        შევხვდეთ აგრაში.
-      </h2>
+      <h2
+        data-ka="შევხვდეთ აგრაში."
+        data-en="Let’s meet at Agra."
+      >შევხვდეთ აგრაში.</h2>
 
       <p
         data-ka="უშგული, სვანეთი, საქართველო"
@@ -243,5 +232,6 @@
 
     <a id="back-to-top" href="#home" aria-label="ზემოთ დაბრუნება">↑</a>
   </footer>
+
 </body>
 </html>
