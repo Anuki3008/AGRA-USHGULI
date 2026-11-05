@@ -21,6 +21,16 @@ module.exports=async function handler(req,res){
     let input=req.body;
     if(typeof input==='string'){if(Buffer.byteLength(input)>3000000)return reply(res,413,'ფაილი ძალიან დიდია.');try{input=JSON.parse(input);}catch{return reply(res,400,'მონაცემები არასწორია.');}}
     if(!input||typeof input!=='object'||Array.isArray(input))return reply(res,400,'მონაცემები არასწორია.');
+    if(input.action==='reset-password'){
+      if(typeof input.token!=='string'||!input.token||input.token.length>16000||typeof input.password!=='string'||input.password.length<12||input.password.length>1024)return reply(res,400,'პაროლი უნდა შეიცავდეს მინიმუმ 12 სიმბოლოს.');
+      const verified=await auth(base,'user',input.token);
+      if(!verified.ok)return reply(res,401,'აღდგენის ბმულს ვადა გაუვიდა. მოითხოვეთ ახალი წერილი.');
+      const account=await verified.json();
+      if(!account.email_confirmed_at||!allowed(account.email))return reply(res,403,'ამ ანგარიშს მართვის უფლება არ აქვს.');
+      const changed=await fetch(base+'/auth/v1/user',{method:'PUT',headers:{apikey:process.env.SUPABASE_ANON_KEY,Authorization:'Bearer '+input.token,'Content-Type':'application/json'},body:JSON.stringify({password:input.password}),signal:AbortSignal.timeout(15000)});
+      if(!changed.ok)return reply(res,400,'პაროლი ვერ შეიცვალა. სცადეთ სხვა ძლიერი პაროლი ან მოითხოვეთ ახალი აღდგენის წერილი.');
+      setCookie(res,'',0);return res.status(200).json({ok:true});
+    }
     if(input.action==='login'){
       if(typeof input.email!=='string'||typeof input.password!=='string'||input.email.length>254||input.password.length>1024)return reply(res,400,'შეიყვანეთ ელფოსტა და პაროლი.');
       const upstream=await auth(base,'token?grant_type=password',null,{email:input.email.trim(),password:input.password});

@@ -30,6 +30,26 @@
     $('login').hidden=false; $('workspace').hidden=true; $('reauth').hidden=true;
     $('email').focus(); status('შედით ხელახლა. თქვენი მონახაზი შენარჩუნებულია.');
   });
+  let recoveryToken='';
+  const recoveryParams=new URLSearchParams(window.location.hash.slice(1));
+  if(recoveryParams.has('access_token')||recoveryParams.has('error')){
+    if(recoveryParams.get('type')==='recovery')recoveryToken=recoveryParams.get('access_token')||'';
+    const failed=recoveryParams.has('error');
+    window.history.replaceState(null,'',window.location.pathname+window.location.search);
+    if(recoveryToken){$('login').hidden=true;$('recovery').hidden=false;}
+    else if(failed)status('აღდგენის ბმული არასწორია ან ვადა გაუვიდა. მოითხოვეთ ახალი წერილი.',true);
+  }
+  for(const key of [...recoveryParams.keys()])recoveryParams.delete(key);
+  $('recovery-form').addEventListener('submit',async event=>{
+    event.preventDefault();let password=$('new-password').value;
+    if(password!==$('confirm-password').value){status('პაროლები არ ემთხვევა.',true);return;}
+    lock(true);status('პაროლი იცვლება…');
+    try{
+      await request({action:'reset-password',token:recoveryToken,password});
+      recoveryToken='';$('recovery-form').reset();$('recovery').hidden=true;$('login').hidden=false;
+      status('პაროლი შეიცვალა. ახლა შედით ელფოსტითა და ახალი პაროლით.');
+    }catch(error){status(error.message,true);}finally{password='';$('new-password').value='';$('confirm-password').value='';lock(false);}
+  });
   const item=()=>data?.items.find(x=>x.id===selected);
   function list(){
     $('list').replaceChildren();const query=$('filter').value.trim().toLocaleLowerCase();
