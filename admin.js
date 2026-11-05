@@ -1,24 +1,35 @@
 (() => {
   'use strict';
   const OWNER='Anuki3008', REPO='AGRA-USHGULI', BRANCH='main';
-  const API=`https://api.github.com/repos/${OWNER}/${REPO}`;
+
   const $=id=>document.getElementById(id);
   const fields=['nameKa','nameEn','price','descriptionKa','descriptionEn','category','vegetarian','icon'];
-  let token='', data=null, sha='', selected='', dirty=false, busy=false;
+  let data=null, sha='', selected='', dirty=false, busy=false;
   const pending=new Map();
   function status(message,error=false){$('status').textContent=message;$('status').classList.toggle('error',error);}
   function markDirty(){dirty=true;$('state').textContent='არის გამოუქვეყნებელი ცვლილებები';}
   function lock(value){busy=value;document.querySelectorAll('button,input,select,textarea,fieldset').forEach(el=>el.disabled=value);if(!value&&data&&!data.items.length)$('fields').disabled=true;}
   function encode(text){let s='';for(const b of new TextEncoder().encode(text))s+=String.fromCharCode(b);return btoa(s);}
   function decode(content){return new TextDecoder().decode(Uint8Array.from(atob(content.replace(/\s/g,'')),c=>c.charCodeAt(0)));}
-  async function api(path,method='GET',body){
-    const response=await fetch(API+path,{method,cache:'no-store',headers:{Accept:'application/vnd.github+json',Authorization:`Bearer ${token}`,'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(60000)});
-    if(!response.ok){
-      const messages={401:'გასაღები არასწორია ან ვადა გაუვიდა.',403:'არ არის ჩაწერის უფლება, ან GitHub-ის მოთხოვნების ლიმიტი ამოიწურა.',404:'რეპოზიტორია ან menu-data.json ვერ მოიძებნა. ჯერ ატვირთეთ პაკეტის ფაილები და შეამოწმეთ გასაღების წვდომა.',409:'მენიუ სხვამ შეცვალა. თქვენი მონახაზი შენარჩუნებულია; ჩამოტვირთეთ ასლი და შეადარეთ ახალ ვერსიას.',422:'GitHub-მა ცვლილება ვერ მიიღო. შეამოწმეთ main ტოტის დაცვის წესები და გასაღების უფლებები.'};
-      throw Error(messages[response.status]||`GitHub-ის შეცდომა (${response.status}). ცვლილება არ დადასტურდა.`);
+  async function request(payload) {
+    const response = await fetch('./api/admin', {
+      method: 'POST', credentials: 'same-origin', cache: 'no-store',
+      headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(60000)
+    });
+    let result;
+    try { result = await response.json(); } catch { throw Error('სერვერი ჯერ არ არის გამართული. მიმართეთ მფლობელს.'); }
+    if (!response.ok) {
+      if (response.status === 401 && data) $('reauth').hidden = false;
+      throw Error(result.error || 'მოთხოვნა ვერ შესრულდა.');
     }
-    return response.json();
+    return result;
   }
+  function api(path, method='GET', body) { return request({action:'github',path,method,body}); }
+  $('reauth').addEventListener('click', () => {
+    $('login').hidden=false; $('workspace').hidden=true; $('reauth').hidden=true;
+    $('email').focus(); status('შედით ხელახლა. თქვენი მონახაზი შენარჩუნებულია.');
+  });
   const item=()=>data?.items.find(x=>x.id===selected);
   function list(){
     $('list').replaceChildren();const query=$('filter').value.trim().toLocaleLowerCase();
@@ -36,8 +47,10 @@
   function show(){const x=item();$('fields').disabled=!x;if(!x)return;for(const key of fields){if(key==='vegetarian')$(key).checked=x[key];else $(key).value=x[key];}preview();$('upload').value='';}
   function dropPending(path){if(pending.has(path)){URL.revokeObjectURL(pending.get(path).preview);pending.delete(path);}}
   $('login-form').addEventListener('submit',async event=>{
-    event.preventDefault();token=$('token').value.trim();$('token').value='';lock(true);status('მიმდინარეობს შესვლა…');
+    event.preventDefault();const email=$('email').value.trim();let password=$('password').value;$('password').value='';lock(true);status('მიმდინარეობს შესვლა…');
     try{
+      await request({action:'login',email,password});password='';
+      if(data){$('login').hidden=true;$('workspace').hidden=false;$('reauth').hidden=true;status('ხელახლა შესული ხართ. მონახაზი შენარჩუნებულია.');return;}
       const repo=await api('');
       if(repo.permissions?.push===false)throw Error('ამ ანგარიშს რეპოზიტორიაში ჩაწერის უფლება არ აქვს.');
       const file=await api(`/contents/menu-data.json?ref=${encodeURIComponent(BRANCH)}`);
@@ -46,7 +59,7 @@
       const labels=['ავტომატური','ხემსი','საუზმე','ძირითადი კერძი','დესერტი','ჭიქა','ღვინო','ფინჯანი','ბოთლი','ლუდი','სპირტიანი სასმელი'];
       $('icon').replaceChildren();AgraData.icons.forEach((name,i)=>$('icon').add(new Option(labels[i],name)));
       $('login').hidden=true;$('workspace').hidden=false;$('logout').hidden=false;dirty=false;list();show();status('მენიუ ჩაიტვირთა. ცვლილებები საიტზე მხოლოდ გამოქვეყნების შემდეგ გამოჩნდება.');
-    }catch(error){token='';data=null;status(error.message,true);}finally{lock(false);}
+    }catch(error){status(error.message,true);}finally{password='';lock(false);}
   });
   $('editor').addEventListener('submit',event=>event.preventDefault());
   fields.forEach(key=>$(key).addEventListener('input',()=>{const x=item();if(!x)return;x[key]=key==='vegetarian'?$(key).checked:key==='category'?Number($(key).value):$(key).value;markDirty();if(key==='nameKa')list();}));
@@ -62,7 +75,7 @@
       const scale=Math.min(1,1600/Math.max(bitmap.width,bitmap.height));
       const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));
       const ctx=canvas.getContext('2d');ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
-      const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',0.85));if(!blob)throw Error('ფოტოს დამუშავება ვერ მოხერხდა.');return blob;
+      const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',0.85));if(!blob)throw Error('ფოტოს დამუშავება ვერ მოხერხდა.');if(blob.size>2000000)throw Error('აირჩიეთ უფრო მცირე ფოტო.');return blob;
     }finally{bitmap.close();}
   }
   $('upload').addEventListener('change',async()=>{
@@ -99,9 +112,9 @@
       catch(error){let check;try{check=await api('/contents/menu-data.json?ref='+encodeURIComponent(BRANCH));}catch{throw error;}if(check.content?.replace(/\s/g,'')!==content)throw error;result={content:{sha:check.sha}};}
       sha=result.content.sha;dirty=false;$('state').textContent='ცვლილებები შენახულია GitHub-ში';
       for(const path of [...pending.keys()])dropPending(path);preview();
-      status('შენახულია GitHub-ში. საიტზე გამოჩენას GitHub Pages-ის განახლება სჭირდება. განახლების დასრულება შეამოწმეთ რეპოზიტორიის Actions განყოფილებაში.');
+      status('შენახულია. საიტზე ცვლილება Vercel-ის განახლების დასრულების შემდეგ გამოჩნდება.');
     }catch(error){status(error.message+'\nმონახაზი არ დაკარგულა. არ დახუროთ პანელი.',true);}finally{lock(false);}
   });
-  $('logout').addEventListener('click',()=>{if(dirty&&!confirm('არის გამოუქვეყნებელი ცვლილებები. მაინც გახვიდეთ?'))return;token='';data=null;sha='';dirty=false;for(const path of [...pending.keys()])dropPending(path);$('editor').reset();$('list').replaceChildren();$('preview').removeAttribute('src');$('workspace').hidden=true;$('logout').hidden=true;$('login').hidden=false;status('გამოსული ხართ.');});
+  $('logout').addEventListener('click',async()=>{if(dirty&&!confirm('არის გამოუქვეყნებელი ცვლილებები. მაინც გახვიდეთ?'))return;lock(true);try{await request({action:'logout'});}catch(error){status(error.message,true);lock(false);return;}lock(false);data=null;sha='';dirty=false;for(const path of [...pending.keys()])dropPending(path);$('editor').reset();$('list').replaceChildren();$('preview').removeAttribute('src');$('workspace').hidden=true;$('logout').hidden=true;$('login').hidden=false;$('reauth').hidden=true;status('გამოსული ხართ.');});
   window.addEventListener('beforeunload',event=>{if(dirty||busy){event.preventDefault();event.returnValue='';}});
 })();
