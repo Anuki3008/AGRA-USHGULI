@@ -16,6 +16,7 @@ module.exports=async function handler(req,res){
   // Browser writes must originate on the same deployment; no cross-origin API access.
   let origin;try{origin=new URL(req.headers.origin);}catch{return reply(res,403,'მოთხოვნის წყარო დაუშვებელია.');}
   if(origin.protocol!=='https:'||origin.host!==req.headers.host)return reply(res,403,'მოთხოვნის წყარო დაუშვებელია.');
+  let stage='authentication';
   try{
     const base=config();
     let input=req.body;
@@ -64,10 +65,19 @@ module.exports=async function handler(req,res){
         body={message:'Add photo from email admin',branch:BRANCH,content:supplied.content};
       }
     }
-    const upstream=await fetch(ROOT+cleanPath+(method==='GET'?'?ref='+BRANCH:''),{method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+process.env.GITHUB_TOKEN,'X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(25000)});
-    if(!upstream.ok){const messages={401:'საიტის GitHub გასაღებს ვადა გაუვიდა. მიმართეთ მფლობელს.',403:'GitHub-ში შენახვის უფლება არ არის ან მოთხოვნების ლიმიტი ამოიწურა.',404:'მენიუს ფაილი ვერ მოიძებნა.',409:'მენიუ სხვამ შეცვალა. თქვენი მონახაზი შენარჩუნებულია.',422:'GitHub-მა ცვლილება ვერ მიიღო. მიმართეთ მფლობელს.'};return reply(res,upstream.status===401?502:upstream.status,messages[upstream.status]||'შენახვა ვერ შესრულდა.');}
+    stage='github-request';
+    const githubToken=process.env.GITHUB_TOKEN.trim();
+    if(!/^[A-Za-z0-9_]+$/.test(githubToken))throw Error('GITHUB_CONFIG');
+    const upstream=await fetch(ROOT+cleanPath+(method==='GET'?'?ref='+BRANCH:''),{method,headers:{Accept:'application/vnd.github+json',Authorization:'Bearer '+githubToken,'User-Agent':'AGRA-Ushguli-Admin','X-GitHub-Api-Version':'2022-11-28',...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(25000)});
+    if(!upstream.ok){console.error('agra-admin',JSON.stringify({stage,status:upstream.status}));const messages={401:'საიტის GitHub გასაღებს ვადა გაუვიდა. მიმართეთ მფლობელს.',403:'GitHub-ში შენახვის უფლება არ არის ან მოთხოვნების ლიმიტი ამოიწურა.',404:'მენიუს ფაილი ვერ მოიძებნა.',409:'მენიუ სხვამ შეცვალა. თქვენი მონახაზი შენარჩუნებულია.',422:'GitHub-მა ცვლილება ვერ მიიღო. მიმართეთ მფლობელს.'};return reply(res,upstream.status===401?502:upstream.status,messages[upstream.status]||'შენახვა ვერ შესრულდა.');}
+    stage='github-response';
     const result=await upstream.json();
     // Return only the fields used by the editor, never upstream headers or credentials.
     return res.status(200).json(method==='GET'?{sha:result.sha,content:result.content,encoding:result.encoding}:{content:{sha:result.content?.sha}});
-  }catch(error){return reply(res,error.message==='CONFIG'?503:502,error.message==='CONFIG'?'ელფოსტით შესვლა ჯერ არ არის გამართული. მიმართეთ საიტის მფლობელს.':'სერვერთან კავშირი ვერ შესრულდა. სცადეთ ხელახლა.');}
+  }catch(error){
+    // Only fixed categories are logged: no messages, headers, bodies or credentials.
+    const reason=error.message==='GITHUB_CONFIG'?'token-format':error.name==='TimeoutError'?'timeout':error instanceof SyntaxError?'invalid-json':'request-failed';
+    console.error('agra-admin',JSON.stringify({stage,reason}));
+    if(stage.startsWith('github'))return reply(res,502,error.message==='GITHUB_CONFIG'?'Vercel-ში GitHub-ის გასაღების ფორმატი არასწორია. თავიდან შეინახეთ GITHUB_TOKEN.':stage==='github-response'?'GitHub-ის პასუხი ვერ დამუშავდა. კოდი: GITHUB_RESPONSE.':'GitHub-თან დაკავშირება ვერ შესრულდა. კოდი: GITHUB_REQUEST.');
+    return reply(res,error.message==='CONFIG'?503:502,error.message==='CONFIG'?'ელფოსტით შესვლა ჯერ არ არის გამართული. მიმართეთ საიტის მფლობელს.':'სერვერთან კავშირი ვერ შესრულდა. სცადეთ ხელახლა.');}
 };
